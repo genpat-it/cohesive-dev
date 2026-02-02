@@ -50,6 +50,15 @@ DB_USER=postgres
 DB_PASS=postgres
 ```
 
+## How It Works
+
+`setup.sh` automatically clones two repositories:
+
+1. **CMDBuild source** (`./source/`) - the Java codebase you'll be working on
+2. **[cohesive-war-builder](https://github.com/genpat-it/cohesive-war-builder)** (`./war-builder/`) - a Docker-based tool that compiles the full CMDBuild WAR file
+
+The war-builder is used during initial setup and whenever you need a full rebuild (`dev-deploy.sh --full`). For daily development, `dev-deploy.sh` only rebuilds the changed Maven modules and copies the JARs directly — no full WAR rebuild needed.
+
 ## Daily Workflow
 
 ```bash
