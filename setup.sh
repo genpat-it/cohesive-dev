@@ -91,14 +91,14 @@ clone_war_builder() {
         return 0
     fi
 
-    log "Cloning cohesive-war-builder into ./war-builder/"
-    git clone https://github.com/genpat-it/cohesive-war-builder.git war-builder
+    log "Cloning cohesive-cmdbuild-builder into ./war-builder/"
+    git clone https://github.com/genpat-it/cohesive-cmdbuild-builder.git war-builder
     log "war-builder cloned"
 }
 
 # ─── Build WAR ───
 build_war() {
-    log "Building WAR with cohesive-war-builder..."
+    log "Building WAR with cohesive-cmdbuild-builder..."
 
     local branch
     branch=$(cd source && git branch --show-current)
@@ -187,7 +187,7 @@ start_container() {
 
     # Clean up old volumes if they exist
     docker compose down 2>/dev/null || true
-    docker volume rm cohesive-dev_cmdbuild_logs cohesive-dev_cmdbuild_work 2>/dev/null || true
+    docker volume rm cohesive-cmdbuild-dev_cmdbuild_logs cohesive-cmdbuild-dev_cmdbuild_work 2>/dev/null || true
 
     docker compose up -d
 

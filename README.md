@@ -1,4 +1,4 @@
-# cohesive-dev
+# cohesive-cmdbuild-dev
 
 Self-contained development environment for CMDBuild backend. Clone this repo and be ready to develop in minutes.
 
@@ -15,8 +15,8 @@ Self-contained development environment for CMDBuild backend. Clone this repo and
 
 ```bash
 # 1. Clone this repo
-git clone https://github.com/genpat-it/cohesive-dev.git
-cd cohesive-dev
+git clone https://github.com/genpat-it/cohesive-cmdbuild-dev.git
+cd cohesive-cmdbuild-dev
 
 # 2. Configure database connection
 cp conf/database.conf.example conf/database.conf
@@ -55,7 +55,7 @@ DB_PASS=postgres
 `setup.sh` automatically clones two repositories:
 
 1. **CMDBuild source** (`./source/`) - the Java codebase you'll be working on
-2. **[cohesive-war-builder](https://github.com/genpat-it/cohesive-war-builder)** (`./war-builder/`) - a Docker-based tool that compiles the full CMDBuild WAR file
+2. **[cohesive-cmdbuild-builder](https://github.com/genpat-it/cohesive-cmdbuild-builder)** (`./war-builder/`) - a Docker-based tool that compiles the full CMDBuild WAR file
 
 The war-builder is used during initial setup and whenever you need a full rebuild (`dev-deploy.sh --full`). For daily development, `dev-deploy.sh` only rebuilds the changed Maven modules and copies the JARs directly — no full WAR rebuild needed.
 
@@ -110,7 +110,7 @@ The war-builder is used during initial setup and whenever you need a full rebuil
 ## Directory Layout
 
 ```
-cohesive-dev/
+cohesive-cmdbuild-dev/
 ├── README.md                  # This file
 ├── setup.sh                   # One-time bootstrap
 ├── dev-deploy.sh              # Daily build & deploy
@@ -119,7 +119,7 @@ cohesive-dev/
 │   ├── database.conf.example  # Template
 │   └── database.conf          # Your config (git-ignored)
 ├── source/                    # CMDBuild source (git-ignored, created by setup.sh)
-├── war-builder/               # cohesive-war-builder (git-ignored, created by setup.sh)
+├── war-builder/               # cohesive-cmdbuild-builder (git-ignored, created by setup.sh)
 └── webapp/                    # Exploded WAR (git-ignored, created by setup.sh)
 ```
 
@@ -181,14 +181,14 @@ Some changes require a Tomcat restart:
 ### Full reset
 ```bash
 docker compose down
-docker volume rm cohesive-dev_cmdbuild_logs cohesive-dev_cmdbuild_work
+docker volume rm cohesive-cmdbuild-dev_cmdbuild_logs cohesive-cmdbuild-dev_cmdbuild_work
 rm -rf webapp
 ./dev-deploy.sh -f
 ```
 
 ## Related Projects
 
-- [cohesive-war-builder](https://github.com/genpat-it/cohesive-war-builder) - Docker-based WAR build system
+- [cohesive-cmdbuild-builder](https://github.com/genpat-it/cohesive-cmdbuild-builder) - Docker-based WAR build system
 - [cohesive-cmdbuild](https://github.com/genpat-it/cohesive-cmdbuild) - CMDBuild source fork
 
 ## License

@@ -9,7 +9,7 @@
 #   ./dev-deploy.sh                  # Build & deploy all changed modules
 #   ./dev-deploy.sh dao/postgresql   # Build & deploy specific module
 #   ./dev-deploy.sh --restart        # Build, deploy & restart Tomcat
-#   ./dev-deploy.sh --full           # Full WAR rebuild with cohesive-war-builder
+#   ./dev-deploy.sh --full           # Full WAR rebuild with cohesive-cmdbuild-builder
 #   ./dev-deploy.sh --status         # Show environment status
 #
 # The script works with the exploded webapp in ./webapp/ and the
@@ -189,11 +189,11 @@ restart_container() {
 # ─── Full WAR rebuild ───
 full_rebuild() {
     if [ ! -d "$WAR_BUILDER_DIR" ]; then
-        log "Cloning cohesive-war-builder..."
-        git clone https://github.com/genpat-it/cohesive-war-builder.git "$WAR_BUILDER_DIR"
+        log "Cloning cohesive-cmdbuild-builder..."
+        git clone https://github.com/genpat-it/cohesive-cmdbuild-builder.git "$WAR_BUILDER_DIR"
     fi
 
-    log "Starting full WAR rebuild with cohesive-war-builder..."
+    log "Starting full WAR rebuild with cohesive-cmdbuild-builder..."
 
     local branch
     branch=$(cd "$SRC_DIR" && git branch --show-current)
@@ -230,7 +230,7 @@ full_rebuild() {
     mkdir -p "$SCRIPT_DIR/webapp/WEB-INF/conf/bus"
 
     log "Starting container..."
-    docker volume rm cohesive-dev_cmdbuild_logs cohesive-dev_cmdbuild_work 2>/dev/null || true
+    docker volume rm cohesive-cmdbuild-dev_cmdbuild_logs cohesive-cmdbuild-dev_cmdbuild_work 2>/dev/null || true
     $COMPOSE up -d
     restart_container
 }
@@ -294,7 +294,7 @@ main() {
             echo "  (no args)           Auto-detect changed modules, build & deploy JARs"
             echo "  MODULE_DIR          Build & deploy specific module(s), e.g. dao/postgresql"
             echo "  --restart, -r       Also restart Tomcat after deploying"
-            echo "  --full, -f          Full WAR rebuild with cohesive-war-builder"
+            echo "  --full, -f          Full WAR rebuild with cohesive-cmdbuild-builder"
             echo "  --status, -s        Show environment status and changed modules"
             echo "  --help, -h          Show this help"
             echo
